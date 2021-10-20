@@ -21,13 +21,9 @@ bool showValue = true;
 
 static inline Rectangle CreateRectangle(float xx, float yy, float w, float h)
 {
-    Rectangle r;
-    r.x=xx;
-    r.y = yy;
-    r.width = w;
-    r.height = h;
-    return r;
+    return (Rectangle){xx, yy, w,h};
 }
+
 static inline Vector3 to_Vector3(vec3 v)
 {
     return (Vector3){ v.x, v.y, v.z };

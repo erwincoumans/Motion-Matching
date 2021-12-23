@@ -17,11 +17,19 @@ extern "C"
 #include <initializer_list>
 
 //--------------------------------------
+bool showValue = true;
+
+static inline Rectangle CreateRectangle(float xx, float yy, float w, float h)
+{
+    return (Rectangle){xx, yy, w,h};
+}
 
 static inline Vector3 to_Vector3(vec3 v)
 {
     return (Vector3){ v.x, v.y, v.z };
 }
+
+float GuiSliderBar(Rectangle bounds, const char *text, float value, float minValue, float maxValue, bool showValue);
 
 //--------------------------------------
 
@@ -2037,116 +2045,106 @@ int main(void)
         
         float ui_sim_hei = 20;
         
-        GuiGroupBox((Rectangle){ 970, ui_sim_hei, 290, 250 }, "simulation object");
+        GuiGroupBox(CreateRectangle( 970, ui_sim_hei, 290, 250 ), "simulation object");
 
         simulation_velocity_halflife = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 10, 120, 20 }, 
-            "velocity halflife", 
-            TextFormat("%5.3f", simulation_velocity_halflife), 
-            simulation_velocity_halflife, 0.0f, 0.5f);
+            CreateRectangle(1100, ui_sim_hei + 10, 120, 20 ), 
+            TextFormat("%s %5.3f", "velocity halflife", simulation_velocity_halflife), 
+            simulation_velocity_halflife, 0.0f, 0.5f, showValue);
             
         simulation_rotation_halflife = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 40, 120, 20 }, 
-            "rotation halflife", 
-            TextFormat("%5.3f", simulation_rotation_halflife), 
-            simulation_rotation_halflife, 0.0f, 0.5f);
+            CreateRectangle( 1100, ui_sim_hei + 40, 120, 20 ), 
+            TextFormat("%s %5.3f", "rotation halflife", simulation_rotation_halflife), 
+            simulation_rotation_halflife, 0.0f, 0.5f, showValue);
             
         simulation_run_fwrd_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 70, 120, 20 }, 
-            "run forward speed", 
-            TextFormat("%5.3f", simulation_run_fwrd_speed), 
-            simulation_run_fwrd_speed, 0.0f, 10.0f);
+            CreateRectangle( 1100, ui_sim_hei + 70, 120, 20 ), 
+            TextFormat("%s %5.3f", "run forward speed", simulation_run_fwrd_speed), 
+            simulation_run_fwrd_speed, 0.0f, 10.0f, showValue);
         
         simulation_run_side_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 100, 120, 20 }, 
-            "run sideways speed", 
-            TextFormat("%5.3f", simulation_run_side_speed), 
-            simulation_run_side_speed, 0.0f, 10.0f);
+            CreateRectangle( 1100, ui_sim_hei + 100, 120, 20 ), 
+            TextFormat("%s %5.3f", "run sideways speed", simulation_run_side_speed), 
+            simulation_run_side_speed, 0.0f, 10.0f, showValue);
         
         simulation_run_back_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 130, 120, 20 }, 
-            "run backwards speed", 
-            TextFormat("%5.3f", simulation_run_back_speed), 
-            simulation_run_back_speed, 0.0f, 10.0f);
+            CreateRectangle( 1100, ui_sim_hei + 130, 120, 20 ), 
+            TextFormat("%s %5.3f", "run backwards speed", simulation_run_back_speed), 
+            simulation_run_back_speed, 0.0f, 10.0f, showValue);
         
         simulation_walk_fwrd_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 160, 120, 20 }, 
-            "walk forward speed", 
-            TextFormat("%5.3f", simulation_walk_fwrd_speed), 
-            simulation_walk_fwrd_speed, 0.0f, 5.0f);
+            CreateRectangle( 1100, ui_sim_hei + 160, 120, 20 ), 
+            TextFormat("%s %5.3f", "walk forward speed", simulation_walk_fwrd_speed), 
+            simulation_walk_fwrd_speed, 0.0f, 5.0f, showValue);
         
         simulation_walk_side_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 190, 120, 20 }, 
-            "walk sideways speed", 
-            TextFormat("%5.3f", simulation_walk_side_speed), 
-            simulation_walk_side_speed, 0.0f, 5.0f);
+            CreateRectangle( 1100, ui_sim_hei + 190, 120, 20 ), 
+            TextFormat("%s %5.3f", "walk sideways speed", simulation_walk_side_speed), 
+            simulation_walk_side_speed, 0.0f, 5.0f, showValue);
         
         simulation_walk_back_speed = GuiSliderBar(
-            (Rectangle){ 1100, ui_sim_hei + 220, 120, 20 }, 
-            "walk backwards speed", 
-            TextFormat("%5.3f", simulation_walk_back_speed), 
-            simulation_walk_back_speed, 0.0f, 5.0f);
+            CreateRectangle( 1100, ui_sim_hei + 220, 120, 20 ), 
+            
+            TextFormat("%s %5.3f", "walk backwards speed", simulation_walk_back_speed), 
+            simulation_walk_back_speed, 0.0f, 5.0f, showValue);
         
         //---------
         
         float ui_inert_hei = 280;
         
-        GuiGroupBox((Rectangle){ 970, ui_inert_hei, 290, 40 }, "inertiaization blending");
+        GuiGroupBox(CreateRectangle( 970, ui_inert_hei, 290, 40 ), "inertiaization blending");
         
         inertialize_blending_halflife = GuiSliderBar(
-            (Rectangle){ 1100, ui_inert_hei + 10, 120, 20 }, 
-            "halflife", 
-            TextFormat("%5.3f", inertialize_blending_halflife), 
-            inertialize_blending_halflife, 0.0f, 0.3f);
+            CreateRectangle( 1100, ui_inert_hei + 10, 120, 20 ), 
+            TextFormat("%s %5.3f", "halflife", inertialize_blending_halflife), 
+            inertialize_blending_halflife, 0.0f, 0.3f, showValue);
         
         //---------
         
         float ui_ctrl_hei = 330;
         
-        GuiGroupBox((Rectangle){ 1010, ui_ctrl_hei, 250, 140 }, "controls");
+        GuiGroupBox(CreateRectangle( 1010, ui_ctrl_hei, 250, 140 ), "controls");
         
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei +  10, 200, 20 }, "Left Trigger - Strafe");
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei +  30, 200, 20 }, "Left Stick - Move");
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei +  50, 200, 20 }, "Right Stick - Camera / Facing (Stafe)");
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei +  70, 200, 20 }, "Left Shoulder - Zoom In");
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei +  90, 200, 20 }, "Right Shoulder - Zoom Out");
-        GuiLabel((Rectangle){ 1030, ui_ctrl_hei + 110, 200, 20 }, "A Button - Walk");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei +  10, 200, 20 ), "Left Trigger - Strafe");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei +  30, 200, 20 ), "Left Stick - Move");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei +  50, 200, 20 ), "Right Stick - Camera / Facing (Stafe)");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei +  70, 200, 20 ), "Left Shoulder - Zoom In");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei +  90, 200, 20 ), "Right Shoulder - Zoom Out");
+        GuiLabel(CreateRectangle( 1030, ui_ctrl_hei + 110, 200, 20 ), "A Button - Walk");
         
         //---------
         
-        GuiGroupBox((Rectangle){ 20, 20, 290, 190 }, "feature weights");
+        GuiGroupBox(CreateRectangle( 20, 20, 290, 190 ), "feature weights");
         
         feature_weight_foot_position = GuiSliderBar(
-            (Rectangle){ 150, 30, 120, 20 }, 
-            "foot position", 
-            TextFormat("%5.3f", feature_weight_foot_position), 
-            feature_weight_foot_position, 0.001f, 3.0f);
+            CreateRectangle( 150, 30, 120, 20 ), 
+            TextFormat("%s %5.3f", "foot position", feature_weight_foot_position), 
+            feature_weight_foot_position, 0.001f, 3.0f, showValue);
             
         feature_weight_foot_velocity = GuiSliderBar(
-            (Rectangle){ 150, 60, 120, 20 }, 
-            "foot velocity", 
-            TextFormat("%5.3f", feature_weight_foot_velocity), 
-            feature_weight_foot_velocity, 0.001f, 3.0f);
+            CreateRectangle( 150, 60, 120, 20 ), 
+            TextFormat("%s %5.3f", "foot velocity", feature_weight_foot_velocity), 
+            feature_weight_foot_velocity, 0.001f, 3.0f, showValue);
         
         feature_weight_hip_velocity = GuiSliderBar(
-            (Rectangle){ 150, 90, 120, 20 }, 
-            "hip velocity", 
-            TextFormat("%5.3f", feature_weight_hip_velocity), 
-            feature_weight_hip_velocity, 0.001f, 3.0f);
+            CreateRectangle( 150, 90, 120, 20 ), 
+            
+            TextFormat("%s %5.3f", "hip velocity", feature_weight_hip_velocity), 
+            feature_weight_hip_velocity, 0.001f, 3.0f, showValue);
         
         feature_weight_trajectory_positions = GuiSliderBar(
-            (Rectangle){ 150, 120, 120, 20 }, 
-            "trajectory positions", 
-            TextFormat("%5.3f", feature_weight_trajectory_positions), 
-            feature_weight_trajectory_positions, 0.001f, 3.0f);
+            CreateRectangle( 150, 120, 120, 20 ), 
+            
+            TextFormat("%s %5.3f", "trajectory positions", feature_weight_trajectory_positions), 
+            feature_weight_trajectory_positions, 0.001f, 3.0f, showValue);
         
         feature_weight_trajectory_directions = GuiSliderBar(
-            (Rectangle){ 150, 150, 120, 20 }, 
-            "trajectory directions", 
-            TextFormat("%5.3f", feature_weight_trajectory_directions), 
-            feature_weight_trajectory_directions, 0.001f, 3.0f);
+            CreateRectangle( 150, 150, 120, 20 ), 
             
-        if (GuiButton((Rectangle){ 150, 180, 120, 20 }, "rebuild database"))
+            TextFormat("%s %5.3f", "trajectory directions", feature_weight_trajectory_directions), 
+            feature_weight_trajectory_directions, 0.001f, 3.0f, showValue);
+            
+        if (GuiButton(CreateRectangle( 150, 180, 120, 20 ), "rebuild database"))
         {
             database_build_matching_features(
                 db,
@@ -2161,80 +2159,75 @@ int main(void)
         
         float ui_sync_hei = 220;
         
-        GuiGroupBox((Rectangle){ 20, ui_sync_hei, 290, 70 }, "synchronization");
+        GuiGroupBox(CreateRectangle( 20, ui_sync_hei, 290, 70 ), "synchronization");
 
         synchronization_enabled = GuiCheckBox(
-            (Rectangle){ 50, ui_sync_hei + 10, 20, 20 }, 
+            CreateRectangle( 50, ui_sync_hei + 10, 20, 20 ), 
             "enabled",
             synchronization_enabled);
 
         synchronization_data_factor = GuiSliderBar(
-            (Rectangle){ 150, ui_sync_hei + 40, 120, 20 }, 
-            "data-driven amount", 
-            TextFormat("%5.3f", synchronization_data_factor), 
-            synchronization_data_factor, 0.0f, 1.0f);
+            CreateRectangle( 150, ui_sync_hei + 40, 120, 20 ), 
+            TextFormat("%s %5.3f", "data-driven amount", synchronization_data_factor), 
+            synchronization_data_factor, 0.0f, 1.0f, showValue);
 
         //---------
         
         float ui_adj_hei = 300;
         
-        GuiGroupBox((Rectangle){ 20, ui_adj_hei, 290, 130 }, "adjustment");
+        GuiGroupBox(CreateRectangle( 20, ui_adj_hei, 290, 130 ), "adjustment");
         
         adjustment_enabled = GuiCheckBox(
-            (Rectangle){ 50, ui_adj_hei + 10, 20, 20 }, 
+            CreateRectangle( 50, ui_adj_hei + 10, 20, 20 ), 
             "enabled",
             adjustment_enabled);    
         
         adjustment_by_velocity_enabled = GuiCheckBox(
-            (Rectangle){ 50, ui_adj_hei + 40, 20, 20 }, 
+            CreateRectangle( 50, ui_adj_hei + 40, 20, 20 ), 
             "clamp to max velocity",
             adjustment_by_velocity_enabled);    
         
         adjustment_position_halflife = GuiSliderBar(
-            (Rectangle){ 150, ui_adj_hei + 70, 120, 20 }, 
-            "position halflife", 
-            TextFormat("%5.3f", adjustment_position_halflife), 
-            adjustment_position_halflife, 0.0f, 0.5f);
+            CreateRectangle( 150, ui_adj_hei + 70, 120, 20 ), 
+            TextFormat("%s %5.3f", "position halflife", adjustment_position_halflife), 
+            adjustment_position_halflife, 0.0f, 0.5f, showValue);
         
         adjustment_rotation_halflife = GuiSliderBar(
-            (Rectangle){ 150, ui_adj_hei + 100, 120, 20 }, 
-            "rotation halflife", 
-            TextFormat("%5.3f", adjustment_rotation_halflife), 
-            adjustment_rotation_halflife, 0.0f, 0.5f);
+            CreateRectangle( 150, ui_adj_hei + 100, 120, 20 ), 
+            TextFormat("%s %5.3f", "rotation halflife", adjustment_rotation_halflife), 
+            adjustment_rotation_halflife, 0.0f, 0.5f, showValue);
         
         //---------
         
         float ui_clamp_hei = 440;
         
-        GuiGroupBox((Rectangle){ 20, ui_clamp_hei, 290, 100 }, "clamping");
+        GuiGroupBox(CreateRectangle( 20, ui_clamp_hei, 290, 100 ), "clamping");
         
         clamping_enabled = GuiCheckBox(
-            (Rectangle){ 50, ui_clamp_hei + 10, 20, 20 }, 
+            CreateRectangle( 50, ui_clamp_hei + 10, 20, 20 ), 
             "enabled",
             clamping_enabled);      
         
         clamping_max_distance = GuiSliderBar(
-            (Rectangle){ 150, ui_clamp_hei + 40, 120, 20 }, 
-            "distance", 
-            TextFormat("%5.3f", clamping_max_distance), 
-            clamping_max_distance, 0.0f, 0.5f);
+            CreateRectangle( 150, ui_clamp_hei + 40, 120, 20 ), 
+            TextFormat("%s %5.3f", "distance", clamping_max_distance), 
+            clamping_max_distance, 0.0f, 0.5f, showValue);
         
         clamping_max_angle = GuiSliderBar(
-            (Rectangle){ 150, ui_clamp_hei + 70, 120, 20 }, 
-            "angle", 
-            TextFormat("%5.3f", clamping_max_angle), 
-            clamping_max_angle, 0.0f, PIf);
+            CreateRectangle( 150, ui_clamp_hei + 70, 120, 20 ), 
+            TextFormat("%s %5.3f", "angle", clamping_max_angle), 
+            clamping_max_angle, 0.0f, PIf, showValue);
         
         //---------
         
         float ui_ik_hei = 550;
         
-        GuiGroupBox((Rectangle){ 20, ui_ik_hei, 290, 100 }, "inverse kinematics");
+        GuiGroupBox(CreateRectangle( 20, ui_ik_hei, 290, 100 ), "inverse kinematics");
         
         bool ik_enabled_prev = ik_enabled;
         
         ik_enabled = GuiCheckBox(
-            (Rectangle){ 50, ui_ik_hei + 10, 20, 20 }, 
+            CreateRectangle( 50, ui_ik_hei + 10, 20, 20 ), 
             "enabled",
             ik_enabled);      
         
@@ -2276,16 +2269,15 @@ int main(void)
         }
         
         ik_blending_halflife = GuiSliderBar(
-            (Rectangle){ 150, ui_ik_hei + 40, 120, 20 }, 
-            "blending halflife", 
-            TextFormat("%5.3f", ik_blending_halflife), 
-            ik_blending_halflife, 0.0f, 1.0f);
+            CreateRectangle( 150, ui_ik_hei + 40, 120, 20 ), 
+            
+            TextFormat("%s %5.3f", "blending halflife", ik_blending_halflife), 
+            ik_blending_halflife, 0.0f, 1.0f, showValue);
         
         ik_unlock_radius = GuiSliderBar(
-            (Rectangle){ 150, ui_ik_hei + 70, 120, 20 }, 
-            "unlock radius", 
-            TextFormat("%5.3f", ik_unlock_radius), 
-            ik_unlock_radius, 0.0f, 0.5f);
+            CreateRectangle( 150, ui_ik_hei + 70, 120, 20 ), 
+            TextFormat("%s %5.3f", "unlock radius", ik_unlock_radius), 
+            ik_unlock_radius, 0.0f, 0.5f, showValue);
         
         //---------
 
